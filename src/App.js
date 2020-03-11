@@ -26,6 +26,7 @@ function App() {
         <p>I am ....</p>
         <Counter></Counter>
         <Users></Users>
+        <Posts></Posts>
         <h2>Nayok Names</h2>
         <ul>
           {
@@ -92,11 +93,11 @@ function Friend(props){
     </div>
   )
 }
-function Person(props){
+function Person(prop){
   return (
     <div style={{border: '2px solid yellow', width: '400px', margin: '15px'}}>
-      <h2>Name: {props.name}</h2>
-      <h3>Profession: {props.job}</h3>
+      <h2>Name: {prop.name}</h2>
+      <h3>Profession: {prop.job}</h3>
     </div>
   )
 }
@@ -125,6 +126,30 @@ function Users(){
           users.map(ul => <li>{ul.name}</li>)
         }
       </ul>
+    </div>
+  )
+}
+function Posts(){
+  const [post, setPost] = useState([]);
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts')
+    .then(res => res.json())
+    .then(data => setPost(data))
+  })
+  return (
+    <div>
+      <h3>Dynamic Post: {post.length}</h3>
+      <div>
+        {
+          post.map(postId => <li>{postId.id}</li>)
+        }
+      </div>
+      <div>
+        <h4>Post Title</h4>
+        {
+          post.map(postTitle => <p>{postTitle.title}</p>)
+        }
+      </div>
     </div>
   )
 }
